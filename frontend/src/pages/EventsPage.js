@@ -10,3 +10,14 @@ function EventsPage() {
 }
 
 export default EventsPage;
+
+export const loader = async () => {
+    const response = await fetch("http://localhost:8080/events")
+    if ( !response.ok ) {
+        throw new Error("Error 404")
+    } else {
+        const resData = await response.json()
+        return resData.events
+    }
+
+}
