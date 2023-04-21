@@ -9,6 +9,7 @@ async function readData() {
   return JSON.parse(data);
 }
 
+
 async function writeData(data) {
   await fs.writeFile('events.json', JSON.stringify(data));
 }
