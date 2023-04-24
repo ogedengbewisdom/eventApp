@@ -1,16 +1,23 @@
-import { useNavigate, Form } from 'react-router-dom';
+import { useNavigate, Form, useNavigation, useActionData, json, redirect } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event }) {
+  const navigation = useNavigation()
   const navigate = useNavigate();
+  const data = useActionData()
+  console.log(data)
+
+  const isSubmiting = navigation.state === "submitting"
+  
   function cancelHandler() {
     navigate('..');
   }
 
   return (
-    <Form method='post' className={classes.form}>
+    <Form method={method} className={classes.form}>
       <p>
+        {data && data.errors && <ul>{Object.values(data.errors).map(err => <li key={err}>{err}</li>)}</ul>}
         <label htmlFor="title">Title</label>
         <input
          id="title" 
@@ -53,13 +60,49 @@ function EventForm({ method, event }) {
          />
       </p>
       <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler}>
+        <button disabled={isSubmiting} type="button" onClick={cancelHandler}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmiting}>{isSubmiting ? "Submiting..." : "Save"}</button>
       </div>
     </Form>
   );
 }
 
 export default EventForm;
+
+export const action = async ({params, request}) => {
+  const data = await request.formData()
+  const eventData = {
+      title: data.get("title"),
+      image: data.get("image"),
+      date: data.get("date"),
+      description: data.get("description")
+  }
+
+  let url = `http://localhost:8080/events`
+
+  if (request.method === "PATCH") {
+    const id = params.eventId
+    url = `http://localhost:8080/events/${id}`
+  }
+
+  const response = await fetch(url, {
+      method: request.method,
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(eventData),
+  })
+
+  if (response.status === 422) {
+      return response
+  }
+
+  if (!response.ok) {
+      throw json({message: "Could not save event try again later"}, {status: 500})
+  }
+
+  return redirect("/events")
+
+}
