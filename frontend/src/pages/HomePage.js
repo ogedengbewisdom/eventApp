@@ -1,8 +1,10 @@
+import PageContent from "../components/PageContents"
 
 
 const HomePage = () => {
+    const title = "Welcome!"
     return(
-        <h1>Welcome to HomePage</h1>
+        <PageContent title={title}><p>Checkout for our amazing events</p></PageContent>
     )
 }
 
