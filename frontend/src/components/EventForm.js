@@ -24,7 +24,7 @@ function EventForm({ method, event }) {
          type="text" 
          name="title" 
          required 
-         defaultValue={event ? event.title : ""}
+         defaultValue={event.data ? event.title : ""}
          />
       </p>
       <p>
