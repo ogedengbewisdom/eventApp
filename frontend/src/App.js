@@ -32,6 +32,7 @@ import EventRootLayout from "./pages/EventRoot";
 import ErrorPage from "./pages/ErrorPage";
 import {action as maniulatAction} from "./components/EventForm"
 import NewsletterPage, {action as newsletterAction} from "./pages/Newsletter";
+import AuthenticationPage, {action as authAction} from "./pages/Authentications";
 
 function App() {
 
@@ -44,6 +45,11 @@ function App() {
     children: [
 
       {index: true, element: <HomePage />},
+      {
+        path: "auth",
+        element: <AuthenticationPage />,
+        action: authAction
+      },
       {
         path: "events", 
         element: <EventRootLayout />, 
