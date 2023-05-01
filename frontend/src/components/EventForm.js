@@ -16,25 +16,33 @@ function EventForm({ method, event }) {
 
   return (
     <Form method={method} className={classes.form}>
-      <p>
-        {data && data.errors && <ul>{Object.values(data.errors).map(err => <li key={err}>{err}</li>)}</ul>}
-        <label htmlFor="title">Title</label>
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )}
+      <p>     
+       <label htmlFor="title">Title</label>
         <input
          id="title" 
          type="text" 
          name="title" 
-         required 
-         defaultValue={event.data ? event.title : ""}
+         defaultValue={event ? event.title : ""}
+         required
          />
+
       </p>
+     
       <p>
         <label htmlFor="image">Image</label>
         <input
          id="image" 
          type="url" 
          name="image"
-         required 
-         defaultValue={event ? event.image : ""} 
+         defaultValue={event ? event.image : ""}
+         required
          
          />
       </p>
@@ -44,8 +52,8 @@ function EventForm({ method, event }) {
          id="date" 
          type="date" 
          name="date" 
-         required 
          defaultValue={event ? event.date : ""}
+         required
          
          />
       </p>
@@ -55,8 +63,8 @@ function EventForm({ method, event }) {
          id="description" 
          name="description" 
          rows="5" 
-         required 
-         defaultValue={event ? event.description : ""} 
+         defaultValue={event ? event.description : ""}
+         required
          />
       </p>
       <div className={classes.actions}>
@@ -71,7 +79,7 @@ function EventForm({ method, event }) {
 
 export default EventForm;
 
-export const action = async ({params, request}) => {
+export const action = async ({request, params}) => {
   const data = await request.formData()
   const eventData = {
       title: data.get("title"),
