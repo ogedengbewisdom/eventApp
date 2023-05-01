@@ -16,6 +16,9 @@ function MainNavigation() {
           <li>
             <NavLink className={ ({isActive}) => isActive ? classes.active : undefined} to='/newsletter'>Newsletter</NavLink>
           </li>
+          <li>
+            <NavLink className={ ({isActive}) => isActive ? classes.active : undefined} to='/auth?mode=login'>Authentication</NavLink>
+          </li>
         </ul>
       </nav>
       <NewsletterSignup />
