@@ -7,4 +7,4 @@ const NewEventPage = () => {
     )
 }
 
-export default NewEventPage
+export default NewEventPage;
