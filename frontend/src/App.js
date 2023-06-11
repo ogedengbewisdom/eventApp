@@ -1,5 +1,5 @@
 
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter} from "react-router-dom"
 import HomePage from "./pages/HomePage";
 import EventsPage, { loader as eventsLoader} from "./pages/EventsPage";
 import NewEventPage from "./pages/NewEventPage";
@@ -13,6 +13,9 @@ import NewsletterPage, {action as newsletterAction} from "./pages/Newsletter";
 import AuthenticationPage, {action as authAction} from "./pages/Authentications";
 import { action as logoutAction } from "./pages/Logout"
 import { checkAuthLoader, tokenLoader } from "./util/auth";
+// import { AnimatePresence } from "framer-motion";
+import Animated from "./Animated";
+
 
 function App() {
 
@@ -64,9 +67,14 @@ function App() {
 
   ])
 
+
   return (
-    <RouterProvider router={router} />
-  );
+
+      <RouterProvider router={router}>
+        <Animated />
+      </RouterProvider>
+   
+  )
 }
 
 export default App;
