@@ -28,7 +28,6 @@ const RootLayout = () => {
         <Fragment>
             <MainNavigation />
             <main>
-                {/* {navigate.state === "loading" && <p>Loading...</p>} */}
             <Outlet />
             </main>
         </Fragment>
